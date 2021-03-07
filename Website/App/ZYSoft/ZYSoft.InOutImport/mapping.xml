@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Mapping>
+  <In>
+    <Item name="业务类型" fiel="FTypeName"/>
+    <Item name="日期" fiel="FDate"/>
+    <Item name="单号" fiel="FBillNo"/>
+    <Item name="仓库代码" fiel="FWhCode"/>
+    <Item name="仓库" fiel="FWhName"/>
+    <Item name="调出仓库" fiel="FOutWhName"/>
+    <Item name="往来单位" fiel="FPartnerName"/>
+    <Item name="序号" fiel="FNo"/>
+    <Item name="商品代码" fiel="FInvCode"/>
+    <Item name="商品名称" fiel="FInvName"/>
+    <Item name="规格" fiel="FSpecifications"/>
+    <Item name="品牌" fiel="FBanner"/>
+    <Item name="单位" fiel="FUnitName"/>
+    <Item name="单价" fiel="FPrice"/>
+    <Item name="数量" fiel="FQuantity"/>
+    <Item name="金额" fiel="FAmount"/>
+  </In>
+  <Out>
+    <Item name="业务类型" fiel="FTypeName"/>
+    <Item name="日期" fiel="FDate"/>
+    <Item name="单号" fiel="FBillNo"/>
+    <Item name="仓库代码" fiel="FWhCode"/>
+    <Item name="仓库" fiel="FWhName"/>
+    <Item name="客户编码" fiel="FPartnerCode"/>
+    <Item name="往来单位" fiel="FPartnerName"/>
+    <Item name="序号" fiel="FNo"/>
+    <Item name="商品代码" fiel="FInvCode"/>
+    <Item name="商品名称" fiel="FInvName"/>
+    <Item name="单位" fiel="FUnitName"/>
+    <Item name="单价" fiel="FPrice"/>
+    <Item name="数量" fiel="FQuantity"/>
+    <Item name="金额" fiel="FAmount"/>
+    <Item name="折扣金额" fiel="FDisAmount"/>
+  </Out>
+</Mapping>

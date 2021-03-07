@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="x-cp20936" ?>
+<services domain="ZYSoft" desc="">
+  <service name="Chanjet.ZYSoft.InOutImport.Interface.IInOutImport"
+           className="Chanjet.ZYSoft.InOutImport.Service.InOutImport"
+           loadFrom="..\server\Chanjet.ZYSoft.InOutImport.Service.dll"
+           desc="" mode="normal"></service>
+</services>
