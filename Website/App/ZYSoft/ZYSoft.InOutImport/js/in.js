@@ -4,13 +4,7 @@
         return {
             loading: false,
             grid: {},
-            tableData: [{
-                FIsValid: false,
-                FErrorMsg: "1111"
-            }, {
-                FIsValid: true,
-                FErrorMsg: "检查通过"
-            }]
+            tableData: []
         };
     },
     methods: {
@@ -18,8 +12,7 @@
             this.grid.clearData()
         },
         setDataSource(records) {
-            this.loading = true;
-            this.loading = false;
+            this.tableData = records;
         },
         generateInv(position) {
 

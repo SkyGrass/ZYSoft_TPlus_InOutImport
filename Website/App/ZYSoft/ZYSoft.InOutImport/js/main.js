@@ -29,8 +29,7 @@
         },
         uploadSuccess(response, file, fileList) {
             if (response.state == "success") {
-                this.grid.replaceData(response.data);
-                this.fileName = response.fileName;
+                this.curgrid.contentWindow.vm.setDataSource(response.data);
             }
             return this.$message({
                 message: response.data.length > 0 ? '导入完成!' : '未能导入数据!',

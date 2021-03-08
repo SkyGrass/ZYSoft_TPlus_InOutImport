@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Mapping>
+  <In>
+    <Item name="业务类型" field="FTypeName"/>
+    <Item name="日期" field="FDate"/>
+    <Item name="单号" field="FBillNo"/>
+    <Item name="仓库代码" field="FWhCode"/>
+    <Item name="仓库" field="FWhName"/>
+    <Item name="调出仓库" field="FOutWhName"/>
+    <Item name="往来单位" field="FPartnerName"/>
+    <Item name="序号" field="FNo"/>
+    <Item name="商品代码" field="FInvCode"/>
+    <Item name="商品名称" field="FInvName"/>
+    <Item name="规格" field="FSpecifications"/>
+    <Item name="品牌" field="FBanner"/>
+    <Item name="单位" field="FUnitName"/>
+    <Item name="单价" field="FPrice"/>
+    <Item name="数量" field="FQuantity"/>
+    <Item name="金额" field="FAmount"/>
+  </In>
+  <Out>
+    <Item name="业务类型" field="FTypeName"/>
+    <Item name="日期" field="FDate"/>
+    <Item name="单号" field="FBillNo"/>
+    <Item name="仓库代码" field="FWhCode"/>
+    <Item name="仓库" field="FWhName"/>
+    <Item name="客户编码" field="FPartnerCode"/>
+    <Item name="往来单位" field="FPartnerName"/>
+    <Item name="序号" field="FNo"/>
+    <Item name="商品代码" field="FInvCode"/>
+    <Item name="商品名称" field="FInvName"/>
+    <Item name="单位" field="FUnitName"/>
+    <Item name="单价" field="FPrice"/>
+    <Item name="数量" field="FQuantity"/>
+    <Item name="金额" field="FAmount"/>
+    <Item name="折扣金额" field="FDisAmount"/>
+  </Out>
+</Mapping>

@@ -1,0 +1,5 @@
+C:\SourceCode\ZYSoft_TPlus_InOutImport\pubref\Chanjet.ZYSoft.InOutImport.Interface.dll
+C:\SourceCode\ZYSoft_TPlus_InOutImport\pubref\Chanjet.ZYSoft.InOutImport.Interface.pdb
+C:\SourceCode\ZYSoft_TPlus_InOutImport\Chanjet.ZYSoft.InOutImport\Chanjet.ZYSoft.InOutImport.Interface\obj\Debug\Chanjet.ZYSoft.InOutImport.Interface.csprojResolveAssemblyReference.cache
+C:\SourceCode\ZYSoft_TPlus_InOutImport\Chanjet.ZYSoft.InOutImport\Chanjet.ZYSoft.InOutImport.Interface\obj\Debug\Chanjet.ZYSoft.InOutImport.Interface.dll
+C:\SourceCode\ZYSoft_TPlus_InOutImport\Chanjet.ZYSoft.InOutImport\Chanjet.ZYSoft.InOutImport.Interface\obj\Debug\Chanjet.ZYSoft.InOutImport.Interface.pdb

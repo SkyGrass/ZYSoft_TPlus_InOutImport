@@ -14,14 +14,14 @@
     headerSort: false,
     width: 300,
     formatter: function (cell, formatterParams) {
-        var value = cell.getValue();
+        var value = cell.getValue() == null ? "" : cell.getValue();
         console.log(value)
         return value.indexOf('通过') > -1 ? "<span style='color:green; font-weight:bold;'>" + value + "</span>" :
             "<span style='color:red; font-weight:bold;'>" + value + "</span>";
     }
 }, {
     title: "业务类型",
-    field: "FBusType",
+    field: "FTypeName",
     hozAlign: "center",
     width: 120,
     headerSort: false

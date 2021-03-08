@@ -13,25 +13,107 @@ using NPOI.HSSF.UserModel;
 
 public class InOutImportUploadHandler : IHttpHandler
 {
-    public class Qgd
+
+
+    public class InEntry
     {
-        public int FNo { get; set; }
-        public string FProjectCode { get; set; }
-        public string FProjectName { get; set; }
-        public int FInvID { get; set; }
+        /// <summary>
+        /// 调拨
+        /// </summary>
+        public string FTypeName { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FTypeId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FDate { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FBillNo { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FWhCode { get; set; }
+        /// <summary>
+        /// 常州店
+        /// </summary>
+        public string FWhName { get; set; }
+        /// <summary>
+        /// 配件仓
+        /// </summary>
+        public string FOutWhName { get; set; }
+        /// <summary>
+        /// 苏南南通
+        /// </summary>
+        public string FPartnerName { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FNo { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public string FInvCode { get; set; }
+        /// <summary>
+        /// OBD检测仪
+        /// </summary>
         public string FInvName { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FSpecifications { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FBanner { get; set; }
+        /// <summary>
+        /// 件
+        /// </summary>
         public string FUnitName { get; set; }
-        public decimal FPlanQuantity { get; set; }
-        public string FRequireDate { get; set; }
-        public decimal FCurQuantity { get; set; }
-        public decimal FQuantity { get; set; }
-        public string FRemark { get; set; }
-        public string FWebsiteLink { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FPrice { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FQuantity { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FAmount { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public int FErrorCount { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool FIsValid { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public string FErrorMsg { get; set; }
 
+    }
+
+    public class OutEntry
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public int FErrorCount { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool FIsValid { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FErrorMsg { get; set; }
     }
 
     public class Project
@@ -422,7 +504,7 @@ public class InOutImportUploadHandler : IHttpHandler
 
     public static void addLogErr(string SPName, string ErrDescribe)
     {
-        string tracingFile = "C:/inetpub/wwwroot/log/";
+        string tracingFile = Path.Combine(HttpContext.Current.Request.PhysicalApplicationPath, "logs");
         if (!Directory.Exists(tracingFile))
             Directory.CreateDirectory(tracingFile);
         string fileName = System.DateTime.Now.ToString("yyyyMMdd") + ".txt";
@@ -452,23 +534,40 @@ public class InOutImportUploadHandler : IHttpHandler
                 case "upload":
                     string busType = context.Request.Form["busType"] ?? "";
                     string fileName = "";
-                    List<Qgd> list = handleFile(context.Request, ref fileName);
-                    result = JsonConvert.SerializeObject(new
+
+                    if (busType.ToLower() == "in")
                     {
-                        state = list.Count > 0 ? "success" : "error",
-                        data = list,
-                        fileName = fileName
-                    });
+                        List<InEntry> listIn = handleFile<InEntry>(context.Request, busType, ref fileName);
+                        result = JsonConvert.SerializeObject(new
+                        {
+                            state = listIn.Count > 0 ? "success" : "error",
+                            data = listIn,
+                            fileName = fileName
+                        });
+                    }
+                    else
+                    {
+                        //List<OutEntry> listIn = handleFile<InEntry>(context.Request, busType, ref fileName);
+                        //result = JsonConvert.SerializeObject(new
+                        //{
+                        //    state = listIn.Count > 0 ? "success" : "error",
+                        //    data = listIn,
+                        //    fileName = fileName
+                        //});
+                    }
                     break;
                 case "check":
-                    List<Qgd> dataSource = JsonConvert.DeserializeObject<List<Qgd>>(context.Request.Form["dataSource"] ?? "");
-                    list = readFile(dataSource);
-                    result = JsonConvert.SerializeObject(new
+                    busType = context.Request.Form["busType"] ?? "";
+                    if (busType.ToLower() == "in")
                     {
-                        state = list.Count > 0 ? "success" : "error",
-                        data = list,
-                        //fileName = fileName
-                    });
+                        List<InEntry> listIn = new List<InEntry>();
+                        readFileForIn(listIn);
+                    }
+                    if (busType.ToLower() == "out")
+                    {
+                        List<OutEntry> listOut = new List<OutEntry>();
+                        readFileForOut(listOut);
+                    }
                     break;
                 default:
                     break;
@@ -477,9 +576,42 @@ public class InOutImportUploadHandler : IHttpHandler
         }
     }
 
-    public List<Qgd> handleFile(HttpRequest request, ref string filename)
+    public DataTable initConf(string type, DataTable dtSource)
     {
-        List<Qgd> list = new List<Qgd>();
+        DataTable dtTarget = dtSource.Copy();
+        try
+        {
+            string BasePath = HttpContext.Current.Request.PhysicalApplicationPath;
+            BasePath = Path.Combine(BasePath, "mapping.xml");
+            XmlDocument xml = new XmlDocument();
+            xml.Load(BasePath);
+            XmlNode nodes = xml.SelectSingleNode("//Mapping/" + type);
+            JsonConvert.DeserializeXmlNode(nodes.InnerText);
+
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            foreach (XmlNode node in nodes.ChildNodes)
+            {
+                dic[node.Attributes["name"].Value] = node.Attributes["field"].Value;
+            }
+
+            foreach (DataColumn dc in dtTarget.Columns)
+            {
+                if (dic.ContainsKey(dc.ColumnName))
+                {
+                    dc.ColumnName = dic[dc.ColumnName];
+                }
+            }
+            return dtTarget;
+        }
+        catch (System.Exception)
+        {
+            return dtTarget;
+        }
+    }
+
+    public List<T> handleFile<T>(HttpRequest request, string type, ref string filename)
+    {
+        List<T> list = new List<T>();
         try
         {
             HttpFileCollection files = request.Files;
@@ -507,40 +639,44 @@ public class InOutImportUploadHandler : IHttpHandler
                     filename = string.Format(@"{0}.{1}", tempFileName, ExtendName);
 
                     DataTable dt = ExcelToDataTable(BasePath, null, true);
-                    if (dt != null && dt.Rows.Count > 0)
-                    {
-                        for (int i = 0; i < dt.Rows.Count; i++)
-                        {
-                            DataRow dr = dt.Rows[i];
-                            Qgd qgd = new Qgd();
-                            qgd.FNo = i + 1;
-                            qgd.FProjectCode = SafeString(dr[0], "");
-                            qgd.FProjectName = SafeString(dr[1], "");
-                            qgd.FInvCode = SafeString(dr[2], "");
-                            qgd.FInvName = SafeString(dr[3], "");
-                            qgd.FPlanQuantity = SafeDecimal(dr[4], 0);
-                            qgd.FRequireDate = SafeString(dr[5], "");
-                            qgd.FCurQuantity = 0;
-                            qgd.FQuantity = SafeDecimal(dr[4], 0);
-                            qgd.FRemark = SafeString(dr[6], "");
-                            qgd.FWebsiteLink = SafeString(dr[7], "");
-                            qgd.FIsValid = false;
-                            qgd.FErrorMsg = "尚未检查!";
-                            list.Add(qgd);
-                        }
-                    }
+
+                    DataTable newDt = initConf(type, dt);
+
+                    list = JsonConvert.DeserializeObject<List<T>>(JsonConvert.SerializeObject(newDt));
                 }
             }
             return list;
         }
         catch (System.Exception e)
         {
-            list.Add(new Qgd() { FInvName = e.Message });
             return list;
         }
     }
 
-    public List<Qgd> readFile(List<Qgd> list)
+    public void fixData(DataTable dt)
+    {
+
+    }
+
+    public List<InEntry> readFileForIn(List<InEntry> list)
+    {
+        try
+        {
+            list.ForEach(f =>
+            {
+                f.FErrorCount = 1;
+                f.FErrorMsg = "尚未检查!";
+                f.FIsValid = true;
+            });
+            return list;
+        }
+        catch
+        {
+            return list;
+        }
+    }
+
+    public List<OutEntry> readFileForOut(List<OutEntry> list)
     {
         try
         {
@@ -573,49 +709,49 @@ public class InOutImportUploadHandler : IHttpHandler
             });
             #endregion
 
-            #region 检查项目编码
-            sql = string.Format(@"select  t1.id FItemID,t1.code FCode,t1.name FName  from AA_Project t1  where t1.disabled=0");
-            DataTable dtProject = ZYSoft.DB.BLL.Common.ExecuteDataTable(sql);
-            List<Project> listProject = ToList<Project>(dtProject);
-            list.ForEach(f =>
-            {
-                Project item = listProject.Find(project => project.FCode.ToLower().Equals(f.FProjectCode.ToLower()));
-                if (item == null)
-                {
-                    f.FErrorCount += 1;
-                    f.FErrorMsg += "没有这个项目编码!\r\n";
-                }
-                else
-                {
-                    f.FProjectName = item.FName;
-                }
-            });
-            #endregion
+            //#region 检查项目编码
+            //sql = string.Format(@"select  t1.id FItemID,t1.code FCode,t1.name FName  from AA_Project t1  where t1.disabled=0");
+            //DataTable dtProject = ZYSoft.DB.BLL.Common.ExecuteDataTable(sql);
+            //List<Project> listProject = ToList<Project>(dtProject);
+            //list.ForEach(f =>
+            //{
+            //    Project item = listProject.Find(project => project.FCode.ToLower().Equals(f.FProjectCode.ToLower()));
+            //    if (item == null)
+            //    {
+            //        f.FErrorCount += 1;
+            //        f.FErrorMsg += "没有这个项目编码!\r\n";
+            //    }
+            //    else
+            //    {
+            //        f.FProjectName = item.FName;
+            //    }
+            //});
+            //#endregion
 
-            #region 检查库存量
-            sql = string.Format(@"SELECT  idinventory FIdinventory,isnull(sum(CanuseBaseQuantity),0) FCanuseBaseQuantity from ST_CurrentStock group by idinventory");
-            DataTable dtCurQuantity = ZYSoft.DB.BLL.Common.ExecuteDataTable(sql);
-            List<CurQuantity> listCurQuantity = ToList<CurQuantity>(dtCurQuantity);
-            list.ForEach(f =>
-            {
-                CurQuantity item = listCurQuantity.Find(cur => cur.FIdinventory == f.FInvID);
-                if (item == null) //没有这个物料的库存
-                {
-                    f.FCurQuantity = 0;
-                    //f.FErrorCount += 1;
-                    //f.FErrorMsg += "未发现存货库存量!\r\n";
-                }
-                else
-                {
-                    if (f.FPlanQuantity <= 0)
-                    {
-                        f.FErrorCount += 1;
-                        f.FErrorMsg += "请购数量不合法!\r\n";
-                    }
-                    f.FCurQuantity = item.FCanuseBaseQuantity;
-                }
-            });
-            #endregion
+            //#region 检查库存量
+            //sql = string.Format(@"SELECT  idinventory FIdinventory,isnull(sum(CanuseBaseQuantity),0) FCanuseBaseQuantity from ST_CurrentStock group by idinventory");
+            //DataTable dtCurQuantity = ZYSoft.DB.BLL.Common.ExecuteDataTable(sql);
+            //List<CurQuantity> listCurQuantity = ToList<CurQuantity>(dtCurQuantity);
+            //list.ForEach(f =>
+            //{
+            //    CurQuantity item = listCurQuantity.Find(cur => cur.FIdinventory == f.FInvID);
+            //    if (item == null) //没有这个物料的库存
+            //    {
+            //        f.FCurQuantity = 0;
+            //        //f.FErrorCount += 1;
+            //        //f.FErrorMsg += "未发现存货库存量!\r\n";
+            //    }
+            //    else
+            //    {
+            //        if (f.FPlanQuantity <= 0)
+            //        {
+            //            f.FErrorCount += 1;
+            //            f.FErrorMsg += "请购数量不合法!\r\n";
+            //        }
+            //        f.FCurQuantity = item.FCanuseBaseQuantity;
+            //    }
+            //});
+            //#endregion
 
             list.ForEach(f =>
             {
@@ -628,6 +764,34 @@ public class InOutImportUploadHandler : IHttpHandler
         {
             return list;
         }
+    }
+
+    public bool checkBillNo(string billNo, string billType, out string errMsg)
+    {
+        string sql = string.Format(@"select * from ST_RDRecord where pubuserdefnvc1='{0}'  and idvouchertype ='{1}'", billNo, billType);
+        errMsg = "";
+        return false;
+    }
+
+    public bool checkWareHouse(string wareName, out string errMsg)
+    {
+        string sql = string.Format(@"select ID,code,name FROM AA_Warehouse WHERE name='{0}'", wareName);
+        errMsg = "";
+        return false;
+    }
+
+    public bool checkPartner(string partnerName, out string errMsg)
+    {
+        string sql = string.Format(@"select ID,code,name FROM aa_partner WHERE name='{0}'", partnerName);
+        errMsg = "";
+        return false;
+    }
+
+    public bool checkInv(string invCode, out string errMsg)
+    {
+        string sql = string.Format(@"select ID,code,name FROM AA_Inventory WHERE code='{0}'", invCode);
+        errMsg = "";
+        return false;
     }
 
     public string LoadXML(string key)
