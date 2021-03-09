@@ -80,9 +80,13 @@
     <script src="./js/element-ui-index.js"></script>
     <script src="./js/jquery.min.js"></script>
     <script>
-        var loginName = "<%=lblUserName.Text%>"
+        <%-- var loginName = "<%=lblUserName.Text%>"
         var loginUserId = "<%=lbUserId.Text%>"
-        var loginUserCode = "<%=lbUserCode.Text%>"
+        var loginUserCode = "<%=lbUserCode.Text%>"--%>
+
+        var loginName = "demo"
+        var loginUserId = "1"
+        var loginUserCode = "001"
     </script>
 
     <script src="js/main.js"></script>

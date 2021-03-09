@@ -44,18 +44,22 @@
         },
         checkTable() {
             const that = this;
-            if (this.grid.getData().length <= 0) return;
+            if (this.curgrid.contentWindow.vm.getData().length <= 0) return;
             this.loading = true;
             $.ajax({
                 type: "POST",
-                url: "uploadhandler.ashx",
+                url: "inoutimportuploadhandler.ashx",
                 async: true,
-                data: { SelectApi: "check", dataSource: JSON.stringify(that.grid.getData()) },
+                data: {
+                    SelectApi: "check",
+                    busType: that.activeName,
+                    dataSource: JSON.stringify(this.curgrid.contentWindow.vm.getData())
+                },
                 dataType: "json",
                 success: function (response) {
                     that.loading = false;
                     if (response.state == "success") {
-                        that.grid.replaceData(response.data);
+                        that.curgrid.contentWindow.vm.setDataSource(response.data);
                     }
                     that.loading = false;
                     return that.$message({
@@ -72,22 +76,22 @@
                 }
             });
         },
-        beforeSave() {
+        beforeSave() { 
             var that = this;
             var result = false;
-            const array = this.grid.getSelectedData();
+            const array = this.curgrid.contentWindow.vm.getData();
 
             if (this.form.FUserCode == "") {
                 result = true;
-                this.$message({
+                return this.$message({
                     message: '尚未选择制单人,请核实!',
                     type: 'warning'
                 });
             }
             if (array.some(function (f) { return f.FIsValid == false })) {
                 result = true;
-                this.$message({
-                    message: '请购单检查未通过,请核实!',
+                return this.$message({
+                    message: '单据检查未通过,请核实!',
                     type: 'warning'
                 });
             }
@@ -97,24 +101,18 @@
         saveTable() {
             var that = this;
             if (!this.beforeSave()) {
-                var temp = this.grid.getSelectedData().map(function (m) {
-                    return {
-                        FInvCode: m.FInvCode,
-                        FProjectCode: m.FProjectCode,
-                        FQuantity: m.FQuantity,
-                        FRequireDate: m.FRequireDate,
-                        FRemark: m.FRemark,
-                        FWebsiteLink: m.FWebsiteLink
-                    }
-                });
-
+                const temp = this.curgrid.contentWindow.vm.getData();
                 if (temp.length > 0) {
                     that.loading = true;
                     $.ajax({
                         type: "POST",
-                        url: "zkmthandler.ashx",
+                        url: "inoutimportuploadhandler.ashx",
                         async: true,
-                        data: { SelectApi: "saveqgd", formdata: JSON.stringify(Object.assign({}, this.form, { Entry: temp })) },
+                        data: {
+                            SelectApi: "save", busType: that.activeName,
+                            form: JSON.stringify(that.form),
+                            dataSource: JSON.stringify(temp)
+                        },
                         dataType: "json",
                         success: function (result) {
                             that.loading = false;

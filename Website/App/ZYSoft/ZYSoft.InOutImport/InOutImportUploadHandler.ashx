@@ -13,18 +13,12 @@ using NPOI.HSSF.UserModel;
 
 public class InOutImportUploadHandler : IHttpHandler
 {
-
-
     public class InEntry
     {
         /// <summary>
         /// 调拨
         /// </summary>
         public string FTypeName { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string FTypeId { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -46,9 +40,17 @@ public class InOutImportUploadHandler : IHttpHandler
         /// </summary>
         public string FOutWhName { get; set; }
         /// <summary>
+        /// 配件仓
+        /// </summary>
+        public string FOutWhCode { get; set; }
+        /// <summary>
         /// 苏南南通
         /// </summary>
         public string FPartnerName { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FPartnerCode { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -70,58 +72,232 @@ public class InOutImportUploadHandler : IHttpHandler
         /// </summary>
         public string FBanner { get; set; }
         /// <summary>
-        /// 件
+        /// 
         /// </summary>
         public string FUnitName { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public string FPrice { get; set; }
+        public decimal FPrice { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public string FQuantity { get; set; }
+        public decimal FQuantity { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public string FAmount { get; set; }
+        public decimal FAmount { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public int FErrorCount { get; set; }
+        public bool FBillNoIsValid { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool FOutWareHouseIsValid { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool FWareHouseIsValid { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool FPartnerIsValid { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool FInvIsValid { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int FBillNoErrorCount { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int FWareHouseErrorCount { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int FOutWareHouseErrorCount { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int FPartnerErrorCount { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int FInvErrorCount { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FBillNoErrorMsg { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FWareHouseErrorMsg { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FOutWareHouseErrorMsg { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FPartnerErrorMsg { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FInvErrorMsg { get; set; }
         /// <summary>
         /// 
         /// </summary>
         public bool FIsValid { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string FErrorMsg { get; set; }
 
     }
 
     public class OutEntry
     {
         /// <summary>
+        /// 调拨
+        /// </summary>
+        public string FTypeName { get; set; }
+        /// <summary>
         /// 
         /// </summary>
-        public int FErrorCount { get; set; }
+        public string FDate { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FBillNo { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FWhCode { get; set; }
+        /// <summary>
+        /// 常州店
+        /// </summary>
+        public string FWhName { get; set; }
+        /// <summary>
+        /// 苏南南通
+        /// </summary>
+        public string FPartnerName { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FPartnerCode { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FNo { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FInvCode { get; set; }
+        /// <summary>
+        /// OBD检测仪
+        /// </summary>
+        public string FInvName { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FUnitName { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal FPrice { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal FQuantity { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal FAmount { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal FDisAmount { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal FTotalAmount { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool FBillNoIsValid { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool FOutWareHouseIsValid { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool FWareHouseIsValid { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool FPartnerIsValid { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool FInvIsValid { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int FBillNoErrorCount { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int FWareHouseErrorCount { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int FOutWareHouseErrorCount { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int FPartnerErrorCount { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int FInvErrorCount { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FBillNoErrorMsg { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FWareHouseErrorMsg { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FOutWareHouseErrorMsg { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FPartnerErrorMsg { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FInvErrorMsg { get; set; }
         /// <summary>
         /// 
         /// </summary>
         public bool FIsValid { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string FErrorMsg { get; set; }
     }
 
-    public class Project
+    public class UserForm
     {
-        public int FItemID { get; set; }
-        public string FCode { get; set; }
-        public string FName { get; set; }
+        public string FUserCode { get; set; }
+        public string FUserName { get; set; }
+    }
 
+    public class XmlConf
+    {
+        public string name { get; set; }
+        public string field { get; set; }
+        public System.Type type { get; set; }
     }
 
     public class Inv
@@ -131,15 +307,205 @@ public class InOutImportUploadHandler : IHttpHandler
         public string FInvName { get; set; }
         public string FInvStd { get; set; }
         public string FUnitName { get; set; }
-
     }
 
-    public class CurQuantity
+    #region 入库
+    public class InDTO
     {
-        public int FIdinventory { get; set; }
-        public decimal FCanuseBaseQuantity { get; set; }
+        /// <summary>
+        /// 当前登录用户编码
+        /// </summary>
+        public string FUserCode { get; set; }
+
+
+        /// <summary>
+        /// 当前登录用户名称
+        /// </summary>
+        public string FUserName { get; set; }
+
+        /// <summary>
+        /// 入库
+        /// </summary>
+        public List<InHeadDTO> InHead { get; set; }
+    }
+
+    /// <summary>
+    /// 入库表头
+    /// </summary>
+    public class InHeadDTO
+    {
+        /// <summary>
+        /// 业务类型
+        /// </summary>
+        public string FType { get; set; }
+        /// <summary>
+        /// 单号
+        /// </summary>
+        public string FBillNo { get; set; }
+        /// <summary>
+        /// 日期
+        /// </summary>
+        public string FDate { get; set; }
+
+
+        /// <summary>
+        ///  仓库编码
+        /// </summary>
+        public string FWhCode { get; set; }
+
+
+        /// <summary>
+        ///  调出仓库编码
+        /// </summary>
+        public string FOutWhCode { get; set; }
+
+        /// <summary>
+        ///  往来单位编码
+        /// </summary>
+        public string FPartnerCode { get; set; }
+
+
+
+        /// <summary>
+        /// 入库明细
+        /// </summary>
+        public List<InEntryDTO> InEntry { get; set; }
 
     }
+
+    /// <summary>
+    /// 入库表体
+    /// </summary>
+    public class InEntryDTO
+    {
+        /// <summary>
+        /// 序号
+        /// </summary>
+        public string FNo { get; set; }
+
+        /// <summary>
+        /// 存货编码 
+        /// </summary>
+        public string FInvCode { get; set; }
+
+        /// <summary>
+        ///  数量
+        /// </summary>
+        public decimal FQuantity { get; set; }
+
+        /// <summary>
+        ///  单价
+        /// </summary>
+        public decimal FPrice { get; set; }
+
+        /// <summary>
+        ///  金额
+        /// </summary>
+        public decimal FAmount { get; set; }
+    }
+    #endregion
+
+    #region 出库
+    public class OutDTO
+    {
+        /// <summary>
+        /// 当前登录用户编码
+        /// </summary>
+        public string FUserCode { get; set; }
+
+
+        /// <summary>
+        /// 当前登录用户名称
+        /// </summary>
+        public string FUserName { get; set; }
+
+        /// <summary>
+        /// 出库
+        /// </summary>
+        public List<OutHeadDTO> OutHead { get; set; }
+
+    }
+
+    /// <summary>
+    /// 出库表头
+    /// </summary>
+    public class OutHeadDTO
+    {
+        /// <summary>
+        /// 业务类型
+        /// </summary>
+        public string FType { get; set; }
+        /// <summary>
+        /// 单号
+        /// </summary>
+        public string FBillNo { get; set; }
+        /// <summary>
+        /// 日期
+        /// </summary>
+        public string FDate { get; set; }
+
+        /// <summary>
+        ///  仓库编码
+        /// </summary>
+        public string FWhCode { get; set; }
+
+        /// <summary>
+        ///  往来单位编码
+        /// </summary>
+        public string FPartnerCode { get; set; }
+
+        /// <summary>
+        ///  净销售额
+        /// </summary>
+        public decimal FAmount { get; set; }
+
+        /// <summary>
+        /// 出库明细
+        /// </summary>
+        public List<OutEntryDTO> OutEntry { get; set; }
+
+    }
+
+    /// <summary>
+    /// 出库表体
+    /// </summary>
+    public class OutEntryDTO
+    {
+
+        /// <summary>
+        /// 序号
+        /// </summary>
+        public string FNo { get; set; }
+
+        /// <summary>
+        /// 存货编码 
+        /// </summary>
+        public string FInvCode { get; set; }
+
+        /// <summary>
+        ///  数量
+        /// </summary>
+        public decimal FQuantity { get; set; }
+
+        /// <summary>
+        ///  单价
+        /// </summary>
+        public decimal FPrice { get; set; }
+
+        /// <summary>
+        ///  金额
+        /// </summary>
+        public decimal FAmount { get; set; }
+        /// <summary>
+        ///  折扣金额
+        /// </summary>
+        public decimal FDisAmount { get; set; }
+    }
+    #endregion
+
+    Dictionary<string, string> BusTypes = new Dictionary<string, string>()  {
+        { "领用赠送", "30" },{ "采购入库", "18" },{ "采购退货", "18"},{ "销售出库", "19"},{ "销售退货", "19"},{ "调拨", "99"},
+    };
 
     public DataTable ExcelToDataTable(string filepath, string sheetname, bool isFirstRowColumn)
     {
@@ -537,36 +903,186 @@ public class InOutImportUploadHandler : IHttpHandler
 
                     if (busType.ToLower() == "in")
                     {
-                        List<InEntry> listIn = handleFile<InEntry>(context.Request, busType, ref fileName);
+                        List<InEntry> listIn = handleFile<InEntry>(context.Request, "In", ref fileName);
                         result = JsonConvert.SerializeObject(new
                         {
                             state = listIn.Count > 0 ? "success" : "error",
-                            data = listIn,
+                            data = listIn.FindAll(f => !string.IsNullOrEmpty(f.FBillNo) && !string.IsNullOrEmpty(f.FTypeName)).Select<InEntry, InEntry>(f =>
+                            {
+                                f.FBillNoErrorCount = 1;
+                                f.FWareHouseErrorCount = 1;
+                                f.FOutWareHouseErrorCount = 1;
+                                f.FPartnerErrorCount = 1;
+                                f.FInvErrorCount = 1;
+
+                                f.FBillNoIsValid = false;
+                                f.FWareHouseIsValid = false;
+                                f.FOutWareHouseIsValid = false;
+                                f.FPartnerIsValid = false;
+                                f.FInvIsValid = false;
+
+                                f.FBillNoErrorMsg = "尚未检查!";
+                                f.FWareHouseErrorMsg = "尚未检查!";
+                                f.FOutWareHouseErrorMsg = "尚未检查!";
+                                f.FPartnerErrorMsg = "尚未检查!";
+                                f.FInvErrorMsg = "尚未检查!";
+
+                                f.FIsValid = false;
+                                return f;
+                            }).ToList(),
                             fileName = fileName
                         });
                     }
                     else
                     {
-                        //List<OutEntry> listIn = handleFile<InEntry>(context.Request, busType, ref fileName);
-                        //result = JsonConvert.SerializeObject(new
-                        //{
-                        //    state = listIn.Count > 0 ? "success" : "error",
-                        //    data = listIn,
-                        //    fileName = fileName
-                        //});
+                        List<OutEntry> listIn = handleFile<OutEntry>(context.Request, "Out", ref fileName);
+                        result = JsonConvert.SerializeObject(new
+                        {
+                            state = listIn.Count > 0 ? "success" : "error",
+                            data = listIn.FindAll(f => !string.IsNullOrEmpty(f.FBillNo) && !string.IsNullOrEmpty(f.FTypeName)).Select<OutEntry, OutEntry>(f =>
+                            {
+                                f.FBillNoErrorCount = 1;
+                                f.FWareHouseErrorCount = 1;
+                                f.FOutWareHouseErrorCount = 1;
+                                f.FPartnerErrorCount = 1;
+                                f.FInvErrorCount = 1;
+
+                                f.FBillNoIsValid = false;
+                                f.FWareHouseIsValid = false;
+                                f.FOutWareHouseIsValid = false;
+                                f.FPartnerIsValid = false;
+                                f.FInvIsValid = false;
+
+                                f.FBillNoErrorMsg = "尚未检查!";
+                                f.FWareHouseErrorMsg = "尚未检查!";
+                                f.FOutWareHouseErrorMsg = "尚未检查!";
+                                f.FPartnerErrorMsg = "尚未检查!";
+                                f.FInvErrorMsg = "尚未检查!";
+
+                                f.FIsValid = false;
+                                return f;
+                            }).ToList(),
+                            fileName = fileName
+                        });
                     }
                     break;
                 case "check":
                     busType = context.Request.Form["busType"] ?? "";
                     if (busType.ToLower() == "in")
                     {
-                        List<InEntry> listIn = new List<InEntry>();
-                        readFileForIn(listIn);
+                        List<InEntry> listIn = JsonConvert.DeserializeObject<List<InEntry>>(context.Request.Form["dataSource"] ?? "");
+                        listIn = readFileForIn(listIn);
+                        result = JsonConvert.SerializeObject(new
+                        {
+                            state = listIn.Count > 0 ? "success" : "error",
+                            data = listIn,
+                        });
                     }
                     if (busType.ToLower() == "out")
                     {
-                        List<OutEntry> listOut = new List<OutEntry>();
-                        readFileForOut(listOut);
+                        List<OutEntry> listOut = JsonConvert.DeserializeObject<List<OutEntry>>(context.Request.Form["dataSource"] ?? "");
+                        listOut = readFileForOut(listOut);
+                        result = JsonConvert.SerializeObject(new
+                        {
+                            state = listOut.Count > 0 ? "success" : "error",
+                            data = listOut,
+                        });
+                    }
+                    break;
+                case "save":
+                    busType = context.Request.Form["busType"] ?? "";
+                    UserForm userForm = JsonConvert.DeserializeObject<UserForm>(context.Request.Form["form"] ?? "");
+
+                    if (busType.ToLower() == "in")
+                    {
+                        List<InEntry> listIn = JsonConvert.DeserializeObject<List<InEntry>>(context.Request.Form["dataSource"] ?? "");
+                        List<string> billNos = listIn.Select(row => row.FBillNo).Distinct().ToList();
+                        InDTO inDto = new InDTO();
+                        inDto.FUserCode = userForm.FUserCode;
+                        inDto.FUserName = userForm.FUserName;
+                        inDto.InHead = new List<InHeadDTO>();
+                        if (billNos.Count > 0)
+                        {
+                            List<InHeadDTO> listInHeadDto = new List<InHeadDTO>();
+                            billNos.ForEach(bill =>
+                            {
+                                listInHeadDto.Clear();
+                                InHeadDTO inHeadDto = new InHeadDTO();
+                                List<InEntry> bills = listIn.FindAll(f => { return f.FBillNo == bill; });
+                                if (bills != null && bills.Count > 0)
+                                {
+                                    bills.ForEach(f =>
+                                    {
+                                        inHeadDto = new InHeadDTO();
+                                        inHeadDto.FType = f.FTypeName;
+                                        inHeadDto.FBillNo = f.FBillNo;
+                                        inHeadDto.FDate = f.FDate;
+                                        inHeadDto.FWhCode = f.FWhCode;
+                                        inHeadDto.FOutWhCode = f.FOutWhCode;
+                                        inHeadDto.FPartnerCode = f.FPartnerCode;
+                                        inHeadDto.InEntry = bills.Select(a =>
+                                        {
+                                            return new InEntryDTO()
+                                            {
+                                                FNo = a.FNo,
+                                                FInvCode = a.FInvCode,
+                                                FQuantity = a.FQuantity,
+                                                FPrice = a.FPrice,
+                                                FAmount = a.FAmount
+                                            };
+                                        }).ToList();
+                                    });
+                                }
+                                listInHeadDto.Add(inHeadDto);
+                            });
+                            inDto.InHead = listInHeadDto;
+                        }
+                    }
+                    if (busType.ToLower() == "out")
+                    {
+                        List<OutEntry> listOut = JsonConvert.DeserializeObject<List<OutEntry>>(context.Request.Form["dataSource"] ?? "");
+                        List<string> billNos = listOut.Select(row => row.FBillNo).Distinct().ToList();
+                        OutDTO outDto = new OutDTO();
+                        outDto.FUserCode = userForm.FUserCode;
+                        outDto.FUserName = userForm.FUserName;
+                        outDto.OutHead = new List<OutHeadDTO>();
+                        if (billNos.Count > 0)
+                        {
+                            List<OutHeadDTO> listOutHeadDto = new List<OutHeadDTO>();
+                            billNos.ForEach(bill =>
+                            {
+                                listOutHeadDto.Clear();
+                                OutHeadDTO outHeadDto = new OutHeadDTO();
+                                List<OutEntry> bills = listOut.FindAll(f => { return f.FBillNo == bill; });
+                                if (bills != null && bills.Count > 0)
+                                {
+                                    bills.ForEach(f =>
+                                    {
+                                        outHeadDto = new OutHeadDTO();
+                                        outHeadDto.FType = f.FTypeName;
+                                        outHeadDto.FBillNo = f.FBillNo;
+                                        outHeadDto.FDate = f.FDate;
+                                        outHeadDto.FWhCode = f.FWhCode;
+                                        outHeadDto.FPartnerCode = f.FPartnerCode;
+                                        List<OutEntryDTO> formEntry = bills.Select(a =>
+                                        {
+                                            return new OutEntryDTO()
+                                            {
+                                                FNo = a.FNo,
+                                                FInvCode = a.FInvCode,
+                                                FQuantity = a.FQuantity,
+                                                FPrice = a.FPrice,
+                                                FAmount = a.FAmount
+                                            };
+                                        }).ToList();
+                                        outHeadDto.FAmount = formEntry.Sum(a => a.FAmount) - formEntry.Sum(b => b.FDisAmount);
+                                        outHeadDto.OutEntry = formEntry;
+                                    });
+                                }
+                                listOutHeadDto.Add(outHeadDto);
+                            });
+                            outDto.OutHead = listOutHeadDto;
+                        }
                     }
                     break;
                 default:
@@ -578,32 +1094,61 @@ public class InOutImportUploadHandler : IHttpHandler
 
     public DataTable initConf(string type, DataTable dtSource)
     {
-        DataTable dtTarget = dtSource.Copy();
+        DataTable dtTarget = new DataTable();
         try
         {
             string BasePath = HttpContext.Current.Request.PhysicalApplicationPath;
-            BasePath = Path.Combine(BasePath, "mapping.xml");
+            BasePath = Path.Combine(BasePath, "Mapping", "mapping.xml");
             XmlDocument xml = new XmlDocument();
             xml.Load(BasePath);
             XmlNode nodes = xml.SelectSingleNode("//Mapping/" + type);
             JsonConvert.DeserializeXmlNode(nodes.InnerText);
 
-            Dictionary<string, string> dic = new Dictionary<string, string>();
+            List<XmlConf> dic = new List<XmlConf>();
             foreach (XmlNode node in nodes.ChildNodes)
             {
-                dic[node.Attributes["name"].Value] = node.Attributes["field"].Value;
+                XmlConf conf = new XmlConf();
+                conf.name = node.Attributes["name"].Value;
+                conf.field = node.Attributes["field"].Value;
+                string typeName = node.Attributes["type"].Value;
+                switch (typeName)
+                {
+                    case "decimal":
+                        conf.type = typeof(decimal);
+                        break;
+                    case "string":
+                    default:
+                        conf.type = typeof(string);
+                        break;
+                }
+                dtTarget.Columns.Add(new DataColumn(conf.field, conf.type));
+                dic.Add(conf);
             }
 
-            foreach (DataColumn dc in dtTarget.Columns)
+
+            foreach (DataRow dr in dtSource.Rows)
             {
-                if (dic.ContainsKey(dc.ColumnName))
+                DataRow drNew = dtTarget.NewRow();
+                foreach (DataColumn dc in dtSource.Columns)
                 {
-                    dc.ColumnName = dic[dc.ColumnName];
+                    XmlConf conf = dic.Find(f => f.name == dc.ColumnName);
+                    if (conf != null)
+                    {
+                        if (conf.type == typeof(decimal))
+                        {
+                            drNew[conf.field] = SafeDecimal(dr[conf.name], 0);
+                        }
+                        else
+                        {
+                            drNew[conf.field] = dr[conf.name];
+                        }
+                    }
                 }
+                dtTarget.Rows.Add(drNew);
             }
             return dtTarget;
         }
-        catch (System.Exception)
+        catch (System.Exception e)
         {
             return dtTarget;
         }
@@ -664,13 +1209,100 @@ public class InOutImportUploadHandler : IHttpHandler
         {
             list.ForEach(f =>
             {
-                f.FErrorCount = 1;
-                f.FErrorMsg = "尚未检查!";
-                f.FIsValid = true;
+                f.FBillNoErrorCount = 1;
+                f.FWareHouseErrorCount = 1;
+                f.FOutWareHouseErrorCount = 1;
+                f.FPartnerErrorCount = 1;
+                f.FInvErrorCount = 1;
+
+                f.FBillNoIsValid = false;
+                f.FWareHouseIsValid = false;
+                f.FOutWareHouseIsValid = false;
+                f.FPartnerIsValid = false;
+                f.FInvIsValid = false;
+
+                f.FBillNoErrorMsg = "尚未检查!";
+                f.FWareHouseErrorMsg = "尚未检查!";
+                f.FOutWareHouseErrorMsg = "尚未检查!";
+                f.FPartnerErrorMsg = "尚未检查!";
+                f.FInvErrorMsg = "尚未检查!";
+            });
+
+            list.ForEach(row =>
+            {
+                string errorMsg = "";
+                if (checkBillNoIsExist(row.FBillNo, row.FTypeName, ref errorMsg))
+                {
+                    row.FBillNoErrorCount += 1;
+                    row.FBillNoErrorMsg = string.IsNullOrEmpty(errorMsg) ? "业务单号已存在!" : errorMsg;
+                }
+                else
+                {
+                    row.FBillNoErrorMsg = "检查通过!";
+                }
+                errorMsg = ""; string warehouseCode = "";
+                if (checkWareHouseIsNotExist(row.FWhName, ref errorMsg, ref warehouseCode))
+                {
+                    row.FWareHouseErrorCount += 1;
+                    row.FWareHouseErrorMsg = string.IsNullOrEmpty(errorMsg) ? "仓库未能匹配到!" : errorMsg;
+                }
+                else
+                {
+                    row.FWareHouseErrorMsg = "检查通过!";
+                    row.FWhCode = warehouseCode;
+                }
+                if (row.FTypeName == "调拨")
+                {
+                    errorMsg = ""; warehouseCode = "";
+                    if (checkWareHouseIsNotExist(row.FOutWhName, ref errorMsg, ref warehouseCode))
+                    {
+                        row.FOutWareHouseErrorCount += 1;
+                        row.FOutWareHouseErrorMsg = string.IsNullOrEmpty(errorMsg) ? "调出仓库未能匹配到!" : errorMsg;
+                    }
+                    else
+                    {
+                        row.FOutWareHouseErrorMsg = "检查通过!";
+                        row.FOutWhCode = warehouseCode;
+                    }
+                }
+                else
+                {
+                    row.FOutWareHouseErrorMsg = "非调拨单,跳过检查!";
+                }
+                errorMsg = ""; string partnerCode = "";
+                if (checkPartnerIsNotExist(row.FPartnerName, ref errorMsg, ref partnerCode))
+                {
+                    row.FPartnerErrorCount += 1;
+                    row.FPartnerErrorMsg = string.IsNullOrEmpty(errorMsg) ? "往来单位未能匹配到!" : errorMsg;
+                }
+                else
+                {
+                    row.FPartnerErrorMsg = "检查通过!";
+                    row.FPartnerName = partnerCode;
+                }
+                if (checkInvIsExist(row.FInvCode, ref errorMsg))
+                {
+                    row.FInvErrorMsg = "检查通过!";
+                }
+                else
+                {
+                    row.FInvErrorCount += 1;
+                    row.FInvErrorMsg = string.IsNullOrEmpty(errorMsg) ? "商品未能匹配到,请创建!" : errorMsg;
+                }
+            });
+
+            list.ForEach(f =>
+            {
+                f.FBillNoIsValid = f.FBillNoErrorCount <= 1;
+                f.FWareHouseIsValid = f.FWareHouseErrorCount <= 1;
+                f.FOutWareHouseIsValid = f.FOutWareHouseErrorCount <= 1;
+                f.FPartnerIsValid = f.FPartnerErrorCount <= 1;
+                f.FInvIsValid = f.FInvErrorCount <= 1;
+                f.FIsValid = f.FBillNoIsValid && f.FWareHouseIsValid && f.FOutWareHouseIsValid && f.FPartnerIsValid && f.FInvIsValid;
             });
             return list;
         }
-        catch
+        catch (System.Exception)
         {
             return list;
         }
@@ -682,81 +1314,78 @@ public class InOutImportUploadHandler : IHttpHandler
         {
             list.ForEach(f =>
             {
-                f.FErrorCount = 1;
-                f.FErrorMsg = "尚未检查!";
-                f.FIsValid = true;
+                f.FBillNoErrorCount = 1;
+                f.FWareHouseErrorCount = 1;
+                f.FOutWareHouseErrorCount = 1;
+                f.FPartnerErrorCount = 1;
+                f.FInvErrorCount = 1;
+
+                f.FBillNoIsValid = false;
+                f.FWareHouseIsValid = false;
+                f.FOutWareHouseIsValid = false;
+                f.FPartnerIsValid = false;
+                f.FInvIsValid = false;
+
+                f.FBillNoErrorMsg = "尚未检查!";
+                f.FWareHouseErrorMsg = "尚未检查!";
+                f.FOutWareHouseErrorMsg = "尚未检查!";
+                f.FPartnerErrorMsg = "尚未检查!";
+                f.FInvErrorMsg = "尚未检查!";
             });
 
-            #region 检查存货档案 
-            string sql = string.Format(@"SELECT t1.id FItemID,t1.code FInvCode,t1.name FInvName,specification 
-                    FInvStd,T2.name FUnitName  FROM dbo.AA_Inventory T1 JOIN dbo.AA_Unit T2 ON T1.idunit=T2.ID WHERE  t1.disabled=0  ");
-            DataTable dtInv = ZYSoft.DB.BLL.Common.ExecuteDataTable(sql);
-            List<Inv> listInv = ToList<Inv>(dtInv);
-            list.ForEach(f =>
+            list.ForEach(row =>
             {
-                Inv item = listInv.Find(inv => inv.FInvCode.ToLower().Equals(f.FInvCode.ToLower()));
-                if (item == null)
+                string errorMsg = "";
+                if (checkBillNoIsExist(row.FBillNo, row.FTypeName, ref errorMsg))
                 {
-                    f.FErrorCount += 1;
-                    f.FErrorMsg += "没有这个存货档案!\r\n";
+                    row.FBillNoErrorCount += 1;
+                    row.FBillNoErrorMsg = string.IsNullOrEmpty(errorMsg) ? "业务单号已存在!" : errorMsg;
                 }
                 else
                 {
-                    f.FInvID = item.FItemID;
-                    f.FInvName = item.FInvName;
-                    f.FUnitName = item.FUnitName;
+                    row.FBillNoErrorMsg = "检查通过!";
+                }
+                errorMsg = ""; string warehouseCode = "";
+                if (checkWareHouseIsNotExist(row.FWhName, ref errorMsg, ref warehouseCode))
+                {
+                    row.FWareHouseErrorCount += 1;
+                    row.FWareHouseErrorMsg = string.IsNullOrEmpty(errorMsg) ? "仓库未能匹配到!" : errorMsg;
+                }
+                else
+                {
+                    row.FWareHouseErrorMsg = "检查通过!";
+                    row.FWhCode = warehouseCode;
+                }
+                errorMsg = ""; string partnerCode = "";
+                if (checkPartnerIsNotExist(row.FPartnerName, ref errorMsg, ref partnerCode))
+                {
+                    row.FPartnerErrorCount += 1;
+                    row.FPartnerErrorMsg = string.IsNullOrEmpty(errorMsg) ? "往来单位未能匹配到!" : errorMsg;
+                }
+                else
+                {
+                    row.FPartnerErrorMsg = "检查通过!";
+                    row.FPartnerName = partnerCode;
+                }
+                if (checkInvIsExist(row.FInvCode, ref errorMsg))
+                {
+                    row.FInvErrorCount += 1;
+                    row.FInvErrorMsg = string.IsNullOrEmpty(errorMsg) ? "商品未能匹配到,请创建!" : errorMsg;
+                }
+                else
+                {
+                    row.FInvErrorMsg = "检查通过!";
                 }
             });
-            #endregion
-
-            //#region 检查项目编码
-            //sql = string.Format(@"select  t1.id FItemID,t1.code FCode,t1.name FName  from AA_Project t1  where t1.disabled=0");
-            //DataTable dtProject = ZYSoft.DB.BLL.Common.ExecuteDataTable(sql);
-            //List<Project> listProject = ToList<Project>(dtProject);
-            //list.ForEach(f =>
-            //{
-            //    Project item = listProject.Find(project => project.FCode.ToLower().Equals(f.FProjectCode.ToLower()));
-            //    if (item == null)
-            //    {
-            //        f.FErrorCount += 1;
-            //        f.FErrorMsg += "没有这个项目编码!\r\n";
-            //    }
-            //    else
-            //    {
-            //        f.FProjectName = item.FName;
-            //    }
-            //});
-            //#endregion
-
-            //#region 检查库存量
-            //sql = string.Format(@"SELECT  idinventory FIdinventory,isnull(sum(CanuseBaseQuantity),0) FCanuseBaseQuantity from ST_CurrentStock group by idinventory");
-            //DataTable dtCurQuantity = ZYSoft.DB.BLL.Common.ExecuteDataTable(sql);
-            //List<CurQuantity> listCurQuantity = ToList<CurQuantity>(dtCurQuantity);
-            //list.ForEach(f =>
-            //{
-            //    CurQuantity item = listCurQuantity.Find(cur => cur.FIdinventory == f.FInvID);
-            //    if (item == null) //没有这个物料的库存
-            //    {
-            //        f.FCurQuantity = 0;
-            //        //f.FErrorCount += 1;
-            //        //f.FErrorMsg += "未发现存货库存量!\r\n";
-            //    }
-            //    else
-            //    {
-            //        if (f.FPlanQuantity <= 0)
-            //        {
-            //            f.FErrorCount += 1;
-            //            f.FErrorMsg += "请购数量不合法!\r\n";
-            //        }
-            //        f.FCurQuantity = item.FCanuseBaseQuantity;
-            //    }
-            //});
-            //#endregion
 
             list.ForEach(f =>
             {
-                f.FIsValid = f.FErrorCount <= 1;
-                f.FErrorMsg = f.FErrorCount <= 1 ? "检查通过!" : f.FErrorMsg;
+                f.FBillNoIsValid = f.FBillNoErrorCount <= 1;
+                f.FWareHouseIsValid = f.FWareHouseErrorCount <= 1;
+                f.FOutWareHouseIsValid = f.FOutWareHouseErrorCount <= 1;
+                f.FPartnerIsValid = f.FPartnerErrorCount <= 1;
+                f.FInvIsValid = f.FInvErrorCount <= 1;
+                f.FIsValid = f.FBillNoIsValid && f.FWareHouseIsValid && f.FOutWareHouseIsValid && f.FPartnerIsValid && f.FInvIsValid;
             });
             return list;
         }
@@ -766,31 +1395,70 @@ public class InOutImportUploadHandler : IHttpHandler
         }
     }
 
-    public bool checkBillNo(string billNo, string billType, out string errMsg)
+    public bool checkBillNoIsExist(string billNo, string billType, ref string errMsg)
     {
-        string sql = string.Format(@"select * from ST_RDRecord where pubuserdefnvc1='{0}'  and idvouchertype ='{1}'", billNo, billType);
-        errMsg = "";
+        try
+        {
+            string billTypeId = BusTypes[billType];
+            string sql = string.Empty;
+            if (billTypeId != "99")
+            {
+                sql = string.Format(@"select * from ST_RDRecord where pubuserdefnvc1='{0}'  and idvouchertype ='{1}'", billNo, billTypeId);
+            }
+            else
+            {
+                sql = string.Format(@"select * from ST_TransVoucher where pubuserdefnvc1='{0}'", billNo);
+            }
+            return ZYSoft.DB.BLL.Common.Exist(sql);
+        }
+        catch (System.Exception e)
+        {
+            errMsg = e.Message;
+        }
+        return true;
+    }
+
+    public bool checkWareHouseIsNotExist(string wareName, ref string errMsg, ref string warehouseCode)
+    {
+        try
+        {
+            string sql = string.Format(@"select code FROM AA_Warehouse WHERE name='{0}'", wareName);
+            warehouseCode = ZYSoft.DB.BLL.Common.ExecuteScalar(sql);
+            return string.IsNullOrEmpty(warehouseCode);
+        }
+        catch (System.Exception e)
+        {
+            errMsg = e.Message;
+        }
         return false;
     }
 
-    public bool checkWareHouse(string wareName, out string errMsg)
+    public bool checkPartnerIsNotExist(string partnerName, ref string errMsg, ref string partnerCode)
     {
-        string sql = string.Format(@"select ID,code,name FROM AA_Warehouse WHERE name='{0}'", wareName);
-        errMsg = "";
+        try
+        {
+            string sql = string.Format(@"select code FROM aa_partner WHERE name='{0}'", partnerName);
+            partnerCode = ZYSoft.DB.BLL.Common.ExecuteScalar(sql);
+            return string.IsNullOrEmpty(partnerCode);
+        }
+        catch (System.Exception e)
+        {
+            errMsg = e.Message;
+        }
         return false;
     }
 
-    public bool checkPartner(string partnerName, out string errMsg)
+    public bool checkInvIsExist(string invCode, ref string errMsg)
     {
-        string sql = string.Format(@"select ID,code,name FROM aa_partner WHERE name='{0}'", partnerName);
-        errMsg = "";
-        return false;
-    }
-
-    public bool checkInv(string invCode, out string errMsg)
-    {
-        string sql = string.Format(@"select ID,code,name FROM AA_Inventory WHERE code='{0}'", invCode);
-        errMsg = "";
+        try
+        {
+            string sql = string.Format(@"select ID,code,name FROM AA_Inventory WHERE code='{0}'", invCode);
+            return ZYSoft.DB.BLL.Common.Exist(sql);
+        }
+        catch (System.Exception e)
+        {
+            errMsg = e.Message;
+        }
         return false;
     }
 

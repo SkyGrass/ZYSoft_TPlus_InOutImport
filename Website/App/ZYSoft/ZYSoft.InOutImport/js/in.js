@@ -14,6 +14,9 @@
         setDataSource(records) {
             this.tableData = records;
         },
+        getData() {
+            return this.grid.getData();
+        },
         generateInv(position) {
 
         }
@@ -33,10 +36,20 @@
         window.onresize = function () {
             that.maxHeight = ($(window).height() - $("#header").height())
         }
+        tableconf_in.splice(2, 0, {
+            formatter: function (cell, formatterParams, onRendered) {
+                return "<button>创建商品</button>";
+            },
+            width: 80,
+            title: "操作",
+            hozAlign: "center",
+            cellClick: function (e, cell) {
+                alert("Printing row data for: " + cell.getRow().getData().name)
+            }
+        });
         this.grid = new Tabulator("#ingrid", {
             height: this.maxHeight,
             columnHeaderVertAlign: "bottom",
-            selectable: true,
             data: this.tableData,
             columns: tableconf_in
         })

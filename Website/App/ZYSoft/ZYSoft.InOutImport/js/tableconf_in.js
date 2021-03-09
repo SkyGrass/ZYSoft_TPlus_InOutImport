@@ -9,17 +9,22 @@
 },
 {
     title: "原因",
-    field: "FErrorMsg",
     hozAlign: "center",
     headerSort: false,
     width: 300,
     formatter: function (cell, formatterParams) {
-        var value = cell.getValue() == null ? "" : cell.getValue();
-        console.log(value)
-        return value.indexOf('通过') > -1 ? "<span style='color:green; font-weight:bold;'>" + value + "</span>" :
-            "<span style='color:red; font-weight:bold;'>" + value + "</span>";
+        var row = cell.getRow().getData();
+        var dom =
+            "<div style='text-align: left;'>" +
+            "<div>业务单据：<span style='color:" + (row.FBillNoIsValid ? 'green' : 'red') + "'; font-weight:bold;'>" + row.FBillNoErrorMsg + "</span></div>" +
+            "<div>仓库：<span style='color:" + (row.FWareHouseIsValid ? 'green' : 'red') + "'; font-weight:bold;'>" + row.FWareHouseErrorMsg + "</span></div>" +
+            "<div>调出仓库：<span style='color:" + (row.FOutWareHouseIsValid ? 'green' : 'red') + "'; font-weight:bold;'>" + row.FOutWareHouseErrorMsg + "</span></div>" +
+            "<div>往来单位：<span style='color:" + (row.FPartnerIsValid ? 'green' : 'red') + "'; font-weight:bold;'>" + row.FPartnerErrorMsg + "</span></div>" +
+             "<div>商品：<span style='color:" + (row.FInvIsValid ? 'green' : 'red') + "'; font-weight:bold;'>" + row.FInvErrorMsg + "</span></div></div>";
+        return dom;
     }
-}, {
+},
+{
     title: "业务类型",
     field: "FTypeName",
     hozAlign: "center",
@@ -50,14 +55,14 @@
     title: "仓库",
     field: "FWhName",
     hozAlign: "center",
-    width: 180,
+    width: 120,
     headerSort: false
 },
 {
     title: "调出仓库",
     field: "FOutWhName",
     hozAlign: "center",
-    width: 180,
+    width: 120,
     headerSort: false
 },
 {
