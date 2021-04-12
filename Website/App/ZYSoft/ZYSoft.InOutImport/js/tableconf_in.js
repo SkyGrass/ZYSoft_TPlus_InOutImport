@@ -3,8 +3,8 @@
     field: "FIsValid",
     hozAlign: "center",
     formatter: "tickCross",
-    width: 80,
-    headerSort: false,
+    width: 110,
+    headerSort: true,
     editor: false,
 },
 {
@@ -36,19 +36,13 @@
     field: "FDate",
     hozAlign: "center",
     width: 120,
-    headerSort: false,
-    formatter: "datetime",
-    formatterParams: {
-        inputFormat: "YYYY-MM-DD",
-        outputFormat: "YYYY-MM-DD",
-        invalidPlaceholder: "",
-    }
+    headerSort: false
 },
 {
     title: "单号",
     field: "FBillNo",
     hozAlign: "center",
-    width: 120,
+    width: 200,
     headerSort: false
 },
 {
@@ -72,13 +66,13 @@
     width: 180,
     headerSort: false
 },
-{
-    title: "序号",
-    field: "FNo",
-    hozAlign: "center",
-    width: 40,
-    headerSort: false
-},
+//{
+//    title: "序号",
+//    field: "FNo",
+//    hozAlign: "center",
+//    width: 40,
+//    headerSort: false
+//},
 {
     title: "商品代码",
     field: "FInvCode",
@@ -91,7 +85,7 @@
     field: "FInvName",
     hozAlign: "center",
     headerSort: false,
-    width: 150,
+    width: 180,
 },
 {
     title: "规格",
@@ -133,6 +127,14 @@
 {
     title: "金额",
     field: "FAmount",
+    hozAlign: "right",
+    width: 100,
+    headerSort: false,
+    editor: false,
+},
+{
+    title: "税率",
+    field: "FTaxRate",
     hozAlign: "right",
     width: 100,
     headerSort: false,

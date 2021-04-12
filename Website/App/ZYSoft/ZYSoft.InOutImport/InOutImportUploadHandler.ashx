@@ -10,6 +10,7 @@ using System.Xml;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using NPOI.HSSF.UserModel;
+using System.Net;
 
 public class InOutImportUploadHandler : IHttpHandler
 {
@@ -63,6 +64,10 @@ public class InOutImportUploadHandler : IHttpHandler
         /// OBD检测仪
         /// </summary>
         public string FInvName { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal FTaxRate { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -172,6 +177,199 @@ public class InOutImportUploadHandler : IHttpHandler
         /// 
         /// </summary>
         public string FWhCode { get; set; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>        /// 存货规格        /// </summary>        public string FSpecifications { get; set; }
         /// <summary>
         /// 常州店
         /// </summary>
@@ -389,6 +587,229 @@ public class InOutImportUploadHandler : IHttpHandler
         public string FInvCode { get; set; }
 
         /// <summary>
+        /// 存货编码 
+        /// </summary>
+        public decimal FTaxRate { get; set; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>        /// 存货规格        /// </summary>        public string FSpecifications { get; set; }
+
+        /// <summary>
         ///  数量
         /// </summary>
         public decimal FQuantity { get; set; }
@@ -482,6 +903,212 @@ public class InOutImportUploadHandler : IHttpHandler
         /// </summary>
         public string FInvCode { get; set; }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>        /// 存货规格        /// </summary>        public string FSpecifications { get; set; }
+
         /// <summary>
         ///  数量
         /// </summary>
@@ -502,16 +1129,95 @@ public class InOutImportUploadHandler : IHttpHandler
         public decimal FDisAmount { get; set; }
     }
     #endregion
+    #region 存货档案
+    /// <summary>
+    /// 创建存货档案
+    /// </summary>
+    public class InventoryDTO
+    {
+        /// <summary>
+        /// 存货编码
+        /// </summary>
+        public string FCode { get; set; }
+
+        /// <summary>
+        /// 存货名称
+        /// </summary>
+        public string FName { get; set; }
+
+        /// <summary>
+        /// 规格型号
+        /// </summary>
+        public string FSpecification { get; set; }
+
+        /// <summary>
+        ///  品牌
+        /// </summary>
+        public string FProductInfo { get; set; }
+
+        /// <summary>
+        ///  计量单位
+        /// </summary>
+        public string FUnit { get; set; }
+
+
+    }
+    #endregion
+
+    /// <summary>
+    /// 表单数据项
+    /// </summary>
+    public class FormItemModel
+    {
+        /// <summary>
+        /// 表单键，request["key"]
+        /// </summary>
+        public string Key { set; get; }
+        /// <summary>
+        /// 表单值,上传文件时忽略，request["key"].value
+        /// </summary>
+        public string Value { set; get; }
+        /// <summary>
+        /// 是否是文件
+        /// </summary>
+        public bool IsFile
+        {
+            get
+            {
+                if (FileContent == null || FileContent.Length == 0)
+                    return false;
+
+                if (FileContent != null && FileContent.Length > 0 && string.IsNullOrWhiteSpace(FileName))
+                    throw new System.Exception("上传文件时 FileName 属性值不能为空");
+                return true;
+            }
+        }
+        /// <summary>
+        /// 上传的文件名
+        /// </summary>
+        public string FileName { set; get; }
+        /// <summary>
+        /// 上传的文件内容
+        /// </summary>
+        public Stream FileContent { set; get; }
+    }
+
+    public class TResult
+    {
+        public string Result { get; set; }
+        public string Message { get; set; }
+        public object Data { get; set; }
+    }
 
     Dictionary<string, string> BusTypes = new Dictionary<string, string>()  {
-        { "领用赠送", "30" },{ "采购入库", "18" },{ "采购退货", "18"},{ "销售出库", "19"},{ "销售退货", "19"},{ "调拨", "99"},
+        { "领用赠送", "30" },{ "采购入库", "8" },{ "采购退货", "8"},{ "销售出库", "19"},{ "销售退货", "19"},{ "调拨", "99"},
     };
 
-    public DataTable ExcelToDataTable(string filepath, string sheetname, bool isFirstRowColumn)
+    public DataTable ExcelToDataTable(string filepath, string sheetname, bool isFirstRowColumn, out string errorMsg)
     {
         ISheet sheet = null;//工作表
         DataTable data = new DataTable();
-
+        errorMsg = "";
         var startrow = 0;
         IWorkbook workbook = null;
         using (FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read))
@@ -579,10 +1285,12 @@ public class InOutImportUploadHandler : IHttpHandler
                         data.Rows.Add(datarow);
                     }
                 }
+
                 return data;
             }
             catch (System.Exception ex)
             {
+                errorMsg = ex.Message;
                 return null;
             }
             finally { fs.Close(); fs.Dispose(); }
@@ -874,8 +1582,8 @@ public class InOutImportUploadHandler : IHttpHandler
         if (!Directory.Exists(tracingFile))
             Directory.CreateDirectory(tracingFile);
         string fileName = System.DateTime.Now.ToString("yyyyMMdd") + ".txt";
-        tracingFile += fileName;
-        if (tracingFile != System.String.Empty)
+        tracingFile = Path.Combine(tracingFile, fileName);
+        if (tracingFile != string.Empty)
         {
             FileInfo file = new System.IO.FileInfo(tracingFile);
             StreamWriter debugWriter = new StreamWriter(file.Open(FileMode.Append, FileAccess.Write, FileShare.ReadWrite));
@@ -900,10 +1608,10 @@ public class InOutImportUploadHandler : IHttpHandler
                 case "upload":
                     string busType = context.Request.Form["busType"] ?? "";
                     string fileName = "";
-
+                    string msg = "";
                     if (busType.ToLower() == "in")
                     {
-                        List<InEntry> listIn = handleFile<InEntry>(context.Request, "In", ref fileName);
+                        List<InEntry> listIn = handleFile<InEntry>(context.Request, "In", ref fileName, ref msg);
                         result = JsonConvert.SerializeObject(new
                         {
                             state = listIn.Count > 0 ? "success" : "error",
@@ -930,12 +1638,13 @@ public class InOutImportUploadHandler : IHttpHandler
                                 f.FIsValid = false;
                                 return f;
                             }).ToList(),
-                            fileName = fileName
+                            fileName = fileName,
+                            msg
                         });
                     }
                     else
                     {
-                        List<OutEntry> listIn = handleFile<OutEntry>(context.Request, "Out", ref fileName);
+                        List<OutEntry> listIn = handleFile<OutEntry>(context.Request, "Out", ref fileName, ref msg);
                         result = JsonConvert.SerializeObject(new
                         {
                             state = listIn.Count > 0 ? "success" : "error",
@@ -975,7 +1684,7 @@ public class InOutImportUploadHandler : IHttpHandler
                         result = JsonConvert.SerializeObject(new
                         {
                             state = listIn.Count > 0 ? "success" : "error",
-                            data = listIn,
+                            data = listIn.FindAll(f => f.FBillNoIsValid).ToList(),
                         });
                     }
                     if (busType.ToLower() == "out")
@@ -985,9 +1694,70 @@ public class InOutImportUploadHandler : IHttpHandler
                         result = JsonConvert.SerializeObject(new
                         {
                             state = listOut.Count > 0 ? "success" : "error",
-                            data = listOut,
+                            data = listOut.FindAll(f => f.FBillNoIsValid).ToList(),
                         });
                     }
+                    break;
+                case "checkinv":
+                    InventoryDTO inv = JsonConvert.DeserializeObject<InventoryDTO>(context.Request.Form["dataSource"] ?? "");
+                    if (string.IsNullOrEmpty(inv.FCode) || string.IsNullOrEmpty(inv.FName))
+                    {
+                        result = JsonConvert.SerializeObject(new
+                        {
+                            state = "error",
+                            msg = "商品编号或者名称不可为空!"
+                        });
+                    }
+                    else
+                    {
+                        string errorMsg = "";
+                        if (checkInvIsExist(inv.FCode, inv.FName, inv.FSpecification, ref errorMsg))
+                        {
+                            result = JsonConvert.SerializeObject(new
+                            {
+                                state = "error",
+                                msg = "商品档案已存在,无需创建!"
+                            });
+                        }
+                        else
+                        {
+                            /*BuildInventory  创建存货*/
+                            string methodName = LoadXML("MethodForInv");
+                            result = SaveBill(inv, methodName);
+                        }
+                    }
+                    break;
+                case "checkinvs":
+                    List<InventoryDTO> invs = JsonConvert.DeserializeObject<List<InventoryDTO>>(context.Request.Form["dataSource"] ?? "");
+                    invs.ForEach(ele =>
+                    {
+                        if (string.IsNullOrEmpty(ele.FCode) || string.IsNullOrEmpty(ele.FName))
+                        {
+                            result = JsonConvert.SerializeObject(new
+                            {
+                                state = "error",
+                                msg = "商品编号或者名称不可为空!"
+                            });
+                        }
+                        else
+                        {
+                            string errorMsg = "";
+                            if (checkInvIsExist(ele.FCode, ele.FName, ele.FSpecification, ref errorMsg))
+                            {
+                                result = JsonConvert.SerializeObject(new
+                                {
+                                    state = "error",
+                                    msg = "商品档案已存在,无需创建!"
+                                });
+                            }
+                            else
+                            {
+                                /*BuildInventory  创建存货*/
+                                string methodName = LoadXML("MethodForInv");
+                                result = SaveBill(ele, methodName);
+                            }
+                        }
+                    });
                     break;
                 case "save":
                     busType = context.Request.Form["busType"] ?? "";
@@ -1004,38 +1774,42 @@ public class InOutImportUploadHandler : IHttpHandler
                         if (billNos.Count > 0)
                         {
                             List<InHeadDTO> listInHeadDto = new List<InHeadDTO>();
+                            listInHeadDto.Clear();
                             billNos.ForEach(bill =>
                             {
-                                listInHeadDto.Clear();
                                 InHeadDTO inHeadDto = new InHeadDTO();
                                 List<InEntry> bills = listIn.FindAll(f => { return f.FBillNo == bill; });
                                 if (bills != null && bills.Count > 0)
                                 {
-                                    bills.ForEach(f =>
+                                    InEntry f = bills[0];
+                                    inHeadDto = new InHeadDTO();
+                                    inHeadDto.FType = f.FTypeName;
+                                    inHeadDto.FBillNo = f.FBillNo;
+                                    inHeadDto.FDate = f.FDate;
+                                    inHeadDto.FWhCode = f.FWhCode;
+                                    inHeadDto.FOutWhCode = f.FOutWhCode;
+                                    inHeadDto.FPartnerCode = f.FPartnerCode;
+                                    inHeadDto.InEntry = bills.Select(a =>
                                     {
-                                        inHeadDto = new InHeadDTO();
-                                        inHeadDto.FType = f.FTypeName;
-                                        inHeadDto.FBillNo = f.FBillNo;
-                                        inHeadDto.FDate = f.FDate;
-                                        inHeadDto.FWhCode = f.FWhCode;
-                                        inHeadDto.FOutWhCode = f.FOutWhCode;
-                                        inHeadDto.FPartnerCode = f.FPartnerCode;
-                                        inHeadDto.InEntry = bills.Select(a =>
+                                        return new InEntryDTO()
                                         {
-                                            return new InEntryDTO()
-                                            {
-                                                FNo = a.FNo,
-                                                FInvCode = a.FInvCode,
-                                                FQuantity = a.FQuantity,
-                                                FPrice = a.FPrice,
-                                                FAmount = a.FAmount
-                                            };
-                                        }).ToList();
-                                    });
+                                            FNo = "", //a.FNo
+                                            FInvCode = getInvCode(a.FInvCode, a.FInvName, a.FSpecifications),
+                                            FTaxRate = a.FTaxRate,
+                                            FQuantity = a.FQuantity,
+                                            FSpecifications = a.FSpecifications,
+                                            FPrice = a.FPrice,
+                                            FAmount = a.FAmount
+                                        };
+                                    }).ToList();
+
+                                    listInHeadDto.Add(inHeadDto);
                                 }
-                                listInHeadDto.Add(inHeadDto);
                             });
                             inDto.InHead = listInHeadDto;
+                            /* BuildInBill  生成入库单据*/
+                            string methodName = LoadXML("MethodForIn");
+                            result = SaveBill(inDto, methodName);
                         }
                     }
                     if (busType.ToLower() == "out")
@@ -1049,39 +1823,42 @@ public class InOutImportUploadHandler : IHttpHandler
                         if (billNos.Count > 0)
                         {
                             List<OutHeadDTO> listOutHeadDto = new List<OutHeadDTO>();
+
+                            listOutHeadDto.Clear();
                             billNos.ForEach(bill =>
                             {
-                                listOutHeadDto.Clear();
                                 OutHeadDTO outHeadDto = new OutHeadDTO();
                                 List<OutEntry> bills = listOut.FindAll(f => { return f.FBillNo == bill; });
                                 if (bills != null && bills.Count > 0)
                                 {
-                                    bills.ForEach(f =>
+                                    OutEntry f = bills[0];
+                                    outHeadDto = new OutHeadDTO();
+                                    outHeadDto.FType = f.FTypeName;
+                                    outHeadDto.FBillNo = f.FBillNo;
+                                    outHeadDto.FDate = f.FDate;
+                                    outHeadDto.FWhCode = f.FWhCode;
+                                    outHeadDto.FPartnerCode = f.FPartnerCode;
+                                    List<OutEntryDTO> formEntry = bills.Select(a =>
                                     {
-                                        outHeadDto = new OutHeadDTO();
-                                        outHeadDto.FType = f.FTypeName;
-                                        outHeadDto.FBillNo = f.FBillNo;
-                                        outHeadDto.FDate = f.FDate;
-                                        outHeadDto.FWhCode = f.FWhCode;
-                                        outHeadDto.FPartnerCode = f.FPartnerCode;
-                                        List<OutEntryDTO> formEntry = bills.Select(a =>
+                                        return new OutEntryDTO()
                                         {
-                                            return new OutEntryDTO()
-                                            {
-                                                FNo = a.FNo,
-                                                FInvCode = a.FInvCode,
-                                                FQuantity = a.FQuantity,
-                                                FPrice = a.FPrice,
-                                                FAmount = a.FAmount
-                                            };
-                                        }).ToList();
-                                        outHeadDto.FAmount = formEntry.Sum(a => a.FAmount) - formEntry.Sum(b => b.FDisAmount);
-                                        outHeadDto.OutEntry = formEntry;
-                                    });
+                                            FNo = "",
+                                            FInvCode = getInvCode(a.FInvCode, a.FInvName, a.FSpecifications),
+                                            FQuantity = a.FQuantity,
+                                            FSpecifications = a.FSpecifications,
+                                            FPrice = a.FPrice,
+                                            FAmount = a.FAmount,
+                                            FDisAmount = a.FDisAmount
+                                        };
+                                    }).ToList();
+                                    outHeadDto.FAmount = formEntry.Sum(a => a.FAmount) - formEntry.Sum(b => b.FDisAmount);
+                                    outHeadDto.OutEntry = formEntry;
                                 }
                                 listOutHeadDto.Add(outHeadDto);
                             });
                             outDto.OutHead = listOutHeadDto;
+                            string methodName = LoadXML("MethodForOut");
+                            result = SaveBill(outDto, methodName);
                         }
                     }
                     break;
@@ -1089,6 +1866,188 @@ public class InOutImportUploadHandler : IHttpHandler
                     break;
             }
             context.Response.Write(result);
+        }
+    }
+
+    /*保存单据*/
+    public string SaveBill<T>(T formData, string methosName)
+    {
+        try
+        {
+            string errMsg = "";
+            if (BeforeSave(formData, ref errMsg))
+            {
+                var WsUrl = LoadXML("WsUrl");
+                var formDatas = new List<FormItemModel>();
+                //添加文本
+                formDatas.Add(new FormItemModel()
+                {
+                    Key = "MethodName",
+                    Value = methosName
+                });          //添加文本
+                formDatas.Add(new FormItemModel()
+                {
+                    Key = "JSON",
+                    Value = JsonConvert.SerializeObject(formData)
+                });
+
+                addLogErr("SaveBill", JsonConvert.SerializeObject(formDatas));
+
+                //提交表单
+                var json = doPost(WsUrl, formDatas);
+                TResult result = JsonConvert.DeserializeObject<TResult>(json);
+                return JsonConvert.SerializeObject(new
+                {
+                    status = result.Result == "Y" ? "success" : "error",
+                    data = "",
+                    msg = result.Result == "Y" ? "生成单据成功!" : result.Message
+                });
+            }
+            else
+            {
+                return JsonConvert.SerializeObject(new
+                {
+                    status = "error",
+                    data = "",
+                    msg = "保存单据失败!"
+                });
+            }
+        }
+        catch (System.Exception e)
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                status = "error",
+                data = "",
+                msg = "生成单据发生异常!" + e.Message
+            });
+        }
+    }
+
+    public bool BeforeSave<T>(T formData, ref string msg)
+    {
+        return true;
+    }
+
+    public string doPost(string url, List<FormItemModel> formItems, CookieContainer cookieContainer = null, string refererUrl = null,
+    System.Text.Encoding encoding = null, int timeOut = 1000 * 60 * 10)
+    {
+        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+        #region 初始化请求对象
+        request.Method = "POST";
+        request.Timeout = timeOut;
+        request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
+        request.KeepAlive = true;
+        request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36";
+        if (!string.IsNullOrEmpty(refererUrl))
+            request.Referer = refererUrl;
+        if (cookieContainer != null)
+            request.CookieContainer = cookieContainer;
+        #endregion
+
+        string boundary = "----" + System.DateTime.Now.Ticks.ToString("x");//分隔符
+        request.ContentType = string.Format("multipart/form-data; boundary={0}", boundary);
+        //请求流
+        var postStream = new MemoryStream();
+        #region 处理Form表单请求内容
+        //是否用Form上传文件
+        var formUploadFile = formItems != null && formItems.Count > 0;
+        if (formUploadFile)
+        {
+            //文件数据模板
+            string fileFormdataTemplate =
+                "\r\n--" + boundary +
+                "\r\nContent-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"" +
+                "\r\nContent-Type: application/octet-stream" +
+                "\r\n\r\n";
+            //文本数据模板
+            string dataFormdataTemplate =
+                "\r\n--" + boundary +
+                "\r\nContent-Disposition: form-data; name=\"{0}\"" +
+                "\r\n\r\n{1}";
+            foreach (var item in formItems)
+            {
+                string formdata = null;
+                if (item.IsFile)
+                {
+                    //上传文件
+                    formdata = string.Format(
+                        fileFormdataTemplate,
+                        item.Key, //表单键
+                        item.FileName);
+                }
+                else
+                {
+                    //上传文本
+                    formdata = string.Format(
+                        dataFormdataTemplate,
+                        item.Key,
+                        item.Value);
+                }
+
+                //统一处理
+                byte[] formdataBytes = null;
+                //第一行不需要换行
+                if (postStream.Length == 0)
+                    formdataBytes = System.Text.Encoding.UTF8.GetBytes(formdata.Substring(2, formdata.Length - 2));
+                else
+                    formdataBytes = System.Text.Encoding.UTF8.GetBytes(formdata);
+                postStream.Write(formdataBytes, 0, formdataBytes.Length);
+
+                //写入文件内容
+                if (item.FileContent != null && item.FileContent.Length > 0)
+                {
+                    using (var stream = item.FileContent)
+                    {
+                        byte[] buffer = new byte[1024];
+                        int bytesRead = 0;
+                        while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0)
+                        {
+                            postStream.Write(buffer, 0, bytesRead);
+                        }
+                    }
+                }
+            }
+            //结尾
+            var footer = System.Text.Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
+            postStream.Write(footer, 0, footer.Length);
+        }
+        else
+        {
+            request.ContentType = "application/x-www-form-urlencoded";
+        }
+        request.ContentLength = postStream.Length;
+        #endregion
+        #region 输入二进制流
+        if (postStream != null)
+        {
+            postStream.Position = 0;
+            //直接写入流
+            Stream requestStream = request.GetRequestStream();
+
+            byte[] buffer = new byte[1024];
+            int bytesRead = 0;
+            while ((bytesRead = postStream.Read(buffer, 0, buffer.Length)) != 0)
+            {
+                requestStream.Write(buffer, 0, bytesRead);
+            }
+            postStream.Close();//关闭文件访问
+        }
+        #endregion
+
+        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        if (cookieContainer != null)
+        {
+            response.Cookies = cookieContainer.GetCookies(response.ResponseUri);
+        }
+
+        using (Stream responseStream = response.GetResponseStream())
+        {
+            using (StreamReader myStreamReader = new StreamReader(responseStream, encoding ?? System.Text.Encoding.UTF8))
+            {
+                string retString = myStreamReader.ReadToEnd();
+                return retString;
+            }
         }
     }
 
@@ -1154,7 +2113,7 @@ public class InOutImportUploadHandler : IHttpHandler
         }
     }
 
-    public List<T> handleFile<T>(HttpRequest request, string type, ref string filename)
+    public List<T> handleFile<T>(HttpRequest request, string type, ref string filename, ref string errMsg)
     {
         List<T> list = new List<T>();
         try
@@ -1183,7 +2142,7 @@ public class InOutImportUploadHandler : IHttpHandler
                     file.SaveAs(BasePath);
                     filename = string.Format(@"{0}.{1}", tempFileName, ExtendName);
 
-                    DataTable dt = ExcelToDataTable(BasePath, null, true);
+                    DataTable dt = ExcelToDataTable(BasePath, null, true, out errMsg);
 
                     DataTable newDt = initConf(type, dt);
 
@@ -1194,6 +2153,7 @@ public class InOutImportUploadHandler : IHttpHandler
         }
         catch (System.Exception e)
         {
+            errMsg = e.Message;
             return list;
         }
     }
@@ -1278,9 +2238,9 @@ public class InOutImportUploadHandler : IHttpHandler
                 else
                 {
                     row.FPartnerErrorMsg = "检查通过!";
-                    row.FPartnerName = partnerCode;
+                    row.FPartnerCode = partnerCode;
                 }
-                if (checkInvIsExist(row.FInvCode, ref errorMsg))
+                if (checkInvIsExist(row.FInvCode, row.FInvName, row.FSpecifications, ref errorMsg))
                 {
                     row.FInvErrorMsg = "检查通过!";
                 }
@@ -1365,16 +2325,16 @@ public class InOutImportUploadHandler : IHttpHandler
                 else
                 {
                     row.FPartnerErrorMsg = "检查通过!";
-                    row.FPartnerName = partnerCode;
+                    row.FPartnerCode = partnerCode;
                 }
-                if (checkInvIsExist(row.FInvCode, ref errorMsg))
+                if (checkInvIsExist(row.FInvCode, row.FInvName, row.FSpecifications, ref errorMsg))
                 {
-                    row.FInvErrorCount += 1;
-                    row.FInvErrorMsg = string.IsNullOrEmpty(errorMsg) ? "商品未能匹配到,请创建!" : errorMsg;
+                    row.FInvErrorMsg = "检查通过!";
                 }
                 else
                 {
-                    row.FInvErrorMsg = "检查通过!";
+                    row.FInvErrorCount += 1;
+                    row.FInvErrorMsg = string.IsNullOrEmpty(errorMsg) ? "商品未能匹配到,请创建!" : errorMsg;
                 }
             });
 
@@ -1382,10 +2342,9 @@ public class InOutImportUploadHandler : IHttpHandler
             {
                 f.FBillNoIsValid = f.FBillNoErrorCount <= 1;
                 f.FWareHouseIsValid = f.FWareHouseErrorCount <= 1;
-                f.FOutWareHouseIsValid = f.FOutWareHouseErrorCount <= 1;
                 f.FPartnerIsValid = f.FPartnerErrorCount <= 1;
                 f.FInvIsValid = f.FInvErrorCount <= 1;
-                f.FIsValid = f.FBillNoIsValid && f.FWareHouseIsValid && f.FOutWareHouseIsValid && f.FPartnerIsValid && f.FInvIsValid;
+                f.FIsValid = f.FBillNoIsValid && f.FWareHouseIsValid && f.FPartnerIsValid && f.FInvIsValid;
             });
             return list;
         }
@@ -1448,11 +2407,35 @@ public class InOutImportUploadHandler : IHttpHandler
         return false;
     }
 
-    public bool checkInvIsExist(string invCode, ref string errMsg)
+    public string getInvCode(string invCode, string invName, string specification)
+    {
+        string newInvCode = "";
+        try
+        {
+            string sql = string.Format(@"select ID,code,name FROM AA_Inventory 
+                    WHERE priuserdefnvc1='{0}' AND name='{1}' AND specification='{2}' ", invCode, invName, specification);
+            DataTable dtInv = ZYSoft.DB.BLL.Common.ExecuteDataTable(sql);
+            if (dtInv != null && dtInv.Rows.Count > 0)
+            {
+                newInvCode = SafeString(dtInv.Rows[0]["code"], "");
+            }
+            return newInvCode;
+        }
+        catch (System.Exception e)
+        {
+            return newInvCode;
+        }
+    }
+
+    public bool checkInvIsExist(string invCode, string invName, string specification, ref string errMsg)
     {
         try
         {
-            string sql = string.Format(@"select ID,code,name FROM AA_Inventory WHERE code='{0}'", invCode);
+            invCode = invCode.Replace('\r', ' ').Replace('\n', ' ').Trim();
+            invName = invCode.Replace('\r', ' ').Replace('\n', ' ').Trim();
+            specification = specification.Replace('\r', ' ').Replace('\n', ' ').Trim();
+            string sql = string.Format(@"select 1 FROM AA_Inventory 
+                    WHERE priuserdefnvc1='{0}' AND name='{1}' AND specification='{2}' ", invCode, invName, specification);
             return ZYSoft.DB.BLL.Common.Exist(sql);
         }
         catch (System.Exception e)

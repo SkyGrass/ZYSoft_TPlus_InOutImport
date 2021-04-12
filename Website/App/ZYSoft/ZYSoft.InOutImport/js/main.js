@@ -31,8 +31,9 @@
             if (response.state == "success") {
                 this.curgrid.contentWindow.vm.setDataSource(response.data);
             }
+            this.loading = false;
             return this.$message({
-                message: response.data.length > 0 ? '导入完成!' : '未能导入数据!',
+                message: response.data.length > 0 ? '导入完成!' : '未能导入数据!' + response.data.message,
                 type: response.data.length > 0 ? 'success' : 'warning'
             });
         },
@@ -76,7 +77,7 @@
                 }
             });
         },
-        beforeSave() { 
+        beforeSave() {
             var that = this;
             var result = false;
             const array = this.curgrid.contentWindow.vm.getData();
@@ -104,45 +105,61 @@
                 const temp = this.curgrid.contentWindow.vm.getData();
                 if (temp.length > 0) {
                     that.loading = true;
-                    $.ajax({
-                        type: "POST",
-                        url: "inoutimportuploadhandler.ashx",
-                        async: true,
-                        data: {
-                            SelectApi: "save", busType: that.activeName,
-                            form: JSON.stringify(that.form),
-                            dataSource: JSON.stringify(temp)
-                        },
-                        dataType: "json",
-                        success: function (result) {
-                            that.loading = false;
-                            if (result.status == "success") {
-                                that.grid.clearData();
-                                return that.$message({
-                                    message: result.msg,
-                                    type: 'success'
-                                });
-                            } else {
-                                return that.$message({
-                                    message: result.msg,
-                                    type: 'warning'
+
+                    that.$confirm('确认提交' + (that.activeName == 'in' ? '入库' : '出库') + '记录吗？').then(function () {
+                        $.ajax({
+                            type: "POST",
+                            url: "inoutimportuploadhandler.ashx",
+                            async: true,
+                            data: {
+                                SelectApi: "save", busType: that.activeName,
+                                form: JSON.stringify(that.form),
+                                dataSource: JSON.stringify(temp)
+                            },
+                            dataType: "json",
+                            success: function (result) {
+                                that.loading = false;
+                                if (result.status == "success") {
+                                    that.clearTable();
+
+                                    return that.$alert(result.msg, '提示', {
+                                        dangerouslyUseHTMLString: true,
+                                        confirmButtonText: '确定'
+                                    });
+                                } else {
+                                    return that.$alert(result.msg, '错误', {
+                                        dangerouslyUseHTMLString: true,
+                                        confirmButtonText: '确定'
+                                    });
+                                }
+                            },
+                            error: function () {
+                                that.loading = false;
+                                return that.$alert('保存单据失败,请检查!', '错误', {
+                                    dangerouslyUseHTMLString: true,
+                                    confirmButtonText: '确定'
                                 });
                             }
-                        },
-                        error: function () {
-                            that.loading = false;
-                            that.$message({
-                                message: '保存单据失败,请检查!',
-                                type: 'warning'
-                            });
-                        }
-                    })
+                        })
+                    }).catch(function () { that.loading = false; })
+
                 } else {
                     this.$message({
-                        message: '尚未勾选行记录,请核实!',
+                        message: '尚未发现记录,请核实!',
                         type: 'warning'
                     });
                 }
+            }
+        },
+        createInvs() {
+            const array = this.curgrid.contentWindow.vm.getData();
+            if (array.length <= 0) {
+                return this.$message({
+                    message: '没有发现记录,请核实!',
+                    type: 'warning'
+                });
+            } else {
+                this.curgrid.contentWindow.vm.createInvs()
             }
         }
     },

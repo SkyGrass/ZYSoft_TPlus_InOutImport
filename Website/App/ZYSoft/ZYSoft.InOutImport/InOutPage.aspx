@@ -10,12 +10,19 @@
     <title>出入库导入</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="./css/element-ui-index.css" />
-    <link rel="stylesheet" href="./css/theme-chalk-index.css">
+    <link rel="stylesheet" href="./css/theme-chalk-index.css" />
     <link href="./css/tabulator.min.css" rel="stylesheet" />
     <style>
         html {
             font-family: "Microsoft Yahei";
             font-size: 11px !important;
+        }
+
+        .el-message-box {
+            max-height: 600px;
+            max-width: 800px;
+            overflow: scroll;
+            overflow-x: hidden;
         }
     </style>
 </head>
@@ -43,7 +50,7 @@
                                     </el-form-item> 
                                        </el-form>
                                 </el-col> 
-                                   <el-col :span="6">
+                                   <el-col :span="10">
                                     <el-upload
                                       ref="upload"
                                       :show-file-list="false"
@@ -54,19 +61,19 @@
                                       <el-button slot="trigger" size="mini" type="primary">选取文件</el-button>
                                       <el-button @click="checkTable" size="mini" type="warning" icon="el-icon-document-checked">检查表格</el-button>
                                       <el-button @click="clearTable" size="mini" type="danger" icon="el-icon-delete">清空记录</el-button>
-                                      <el-button @click="saveTable" size="mini" type="success" icon="el-icon-check" :loading ="loading">保存记录</el-button>
-                                    </el-upload>
+                                      <el-button @click="saveTable" size="mini" type="success" icon="el-icon-check" v-loading.fullscreen.lock ="loading">保存记录</el-button>
+                                      <el-button @click="createInvs" size="mini" type="success" icon="el-icon-success" v-loading.fullscreen.lock ="loading">批量创建商品档案</el-button>
+                                    </el-upload> 
                                 </el-col>  
                             </el-row>
                         </el-header>
                    
                      <el-main style="padding:10px 20px 0px 20px">
-                        
                         <el-row>
                             <el-col>
                                  <el-tabs  v-model="activeName">
-                                    <el-tab-pane label="入库页签" name="in"><iframe id="in_iframe" ref="in_iframe" src="InPage.aspx" width="1200" height="400"></iframe></el-tab-pane>
-                                    <el-tab-pane label="出库页签" name="out"><iframe id="out_iframe" ref="out_iframe" src="OutPage.aspx" width="1200" height="400"></iframe></el-tab-pane> 
+                                    <el-tab-pane label="入库单" name="in"><iframe id="in_iframe" ref="in_iframe" src="InPage.aspx" width="1200" height="400"></iframe></el-tab-pane>
+                                    <el-tab-pane label="出库单" name="out"><iframe id="out_iframe" ref="out_iframe" src="OutPage.aspx" width="1200" height="400"></iframe></el-tab-pane> 
                                  </el-tabs>
                             </el-col>
                         </el-row>
@@ -80,13 +87,9 @@
     <script src="./js/element-ui-index.js"></script>
     <script src="./js/jquery.min.js"></script>
     <script>
-        <%-- var loginName = "<%=lblUserName.Text%>"
+        var loginName = "<%=lblUserName.Text%>"
         var loginUserId = "<%=lbUserId.Text%>"
-        var loginUserCode = "<%=lbUserCode.Text%>"--%>
-
-        var loginName = "demo"
-        var loginUserId = "1"
-        var loginUserCode = "001"
+        var loginUserCode = "<%=lbUserCode.Text%>"
     </script>
 
     <script src="js/main.js"></script>

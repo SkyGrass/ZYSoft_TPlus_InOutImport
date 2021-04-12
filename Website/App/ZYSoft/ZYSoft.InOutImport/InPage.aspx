@@ -7,10 +7,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>请购单</title>
+    <title>入库单</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="./css/element-ui-index.css" />
-    <link rel="stylesheet" href="./css/theme-chalk-index.css">
+    <link rel="stylesheet" href="./css/theme-chalk-index.css" />
     <link href="./css/tabulator.min.css" rel="stylesheet" />
     <style>
         .el-dialog__body {
