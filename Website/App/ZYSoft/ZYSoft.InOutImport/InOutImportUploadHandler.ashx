@@ -369,6 +369,18 @@ public class InOutImportUploadHandler : IHttpHandler
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
         /// <summary>        /// 存货规格        /// </summary>        public string FSpecifications { get; set; }
         /// <summary>
         /// 常州店
@@ -807,6 +819,18 @@ public class InOutImportUploadHandler : IHttpHandler
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
         /// <summary>        /// 存货规格        /// </summary>        public string FSpecifications { get; set; }
 
         /// <summary>
@@ -902,6 +926,18 @@ public class InOutImportUploadHandler : IHttpHandler
         /// 存货编码 
         /// </summary>
         public string FInvCode { get; set; }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2412,6 +2448,9 @@ public class InOutImportUploadHandler : IHttpHandler
         string newInvCode = "";
         try
         {
+            invCode = invCode.Replace('\r', ' ').Replace('\n', ' ').Trim();
+            invName = invName.Replace('\r', ' ').Replace('\n', ' ').Trim();
+            specification = specification.Replace('\r', ' ').Replace('\n', ' ').Trim();
             string sql = string.Format(@"select ID,code,name FROM AA_Inventory 
                     WHERE priuserdefnvc1='{0}' AND name='{1}' AND specification='{2}' ", invCode, invName, specification);
             DataTable dtInv = ZYSoft.DB.BLL.Common.ExecuteDataTable(sql);
@@ -2432,7 +2471,7 @@ public class InOutImportUploadHandler : IHttpHandler
         try
         {
             invCode = invCode.Replace('\r', ' ').Replace('\n', ' ').Trim();
-            invName = invCode.Replace('\r', ' ').Replace('\n', ' ').Trim();
+            invName = invName.Replace('\r', ' ').Replace('\n', ' ').Trim();
             specification = specification.Replace('\r', ' ').Replace('\n', ' ').Trim();
             string sql = string.Format(@"select 1 FROM AA_Inventory 
                     WHERE priuserdefnvc1='{0}' AND name='{1}' AND specification='{2}' ", invCode, invName, specification);
